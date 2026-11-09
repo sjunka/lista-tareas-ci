@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Lista de tareas</title>
+    <style>
+        body { font-family: sans-serif; max-width: 32rem; margin: 2rem auto; padding: 0 1rem; }
+        li { margin: 0.4rem 0; }
+        li form { display: inline; }
+    </style>
+</head>
+<body>
+    <h1>Lista de tareas</h1>
+
+    <form method="post" action="{{ url_for('agregar_tarea') }}">
+        <input type="text" name="texto" placeholder="Nueva tarea" aria-label="Nueva tarea" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <ul>
+        {% for tarea in tareas %}
+        <li>
+            {{ tarea.texto }}
+            <form method="post" action="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}">
+                <button type="submit">Eliminar</button>
+            </form>
+        </li>
+        {% else %}
+        <li>No hay tareas pendientes.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
